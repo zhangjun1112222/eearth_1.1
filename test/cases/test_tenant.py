@@ -23,7 +23,3 @@ class TestTenant:
         assert res.json()['code'] == 200
 
     def test_tenant_add(self,test_login):
-        """
-        新增租户
-        """
-        u = ServerInfo.get_url('')
