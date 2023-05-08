@@ -26,3 +26,4 @@ class TestTenant:
         """
         新增租户
         """
+        u = ServerInfo.get_url()
