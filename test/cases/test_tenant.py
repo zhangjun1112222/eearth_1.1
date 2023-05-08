@@ -22,4 +22,7 @@ class TestTenant:
         assert res.status_code == 200
         assert res.json()['code'] == 200
 
-    def test_tenant_add(self,test_login):
+    def test_tenant_add(self, test_login):
+        """
+        新增租户
+        """
