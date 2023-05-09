@@ -16,10 +16,10 @@ def test_login():
 
 
 @pytest.fixture(scope='function')
-def test_login2():
-    u = ServerInfo.get_url('/tenant/user/login')
-    d = {'username': 'zj0001', 'password': 'e10adc3949ba59abbe56e057f20f883e', "rememberMe": "false"}
-    # 账号：admin 密码：123456
+def test_login1():
+    u = ServerInfo.get_url1('/tenant/user/login')
+    d = {'username': '管理员', 'password': 'e10adc3949ba59abbe56e057f20f883e', "rememberMe": "false"}
+    # 账号：管理员 密码：123456
 
     res = requests.post(url=u, json=d)
     # print(res.json())

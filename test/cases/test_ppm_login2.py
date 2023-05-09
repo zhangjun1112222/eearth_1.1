@@ -3,7 +3,7 @@ import yaml
 from config.config import ServerInfo
 import requests
 from test.cases import data_path
-with open(f'{data_path}/test_earth.yaml', 'r', encoding='utf-8') as f:
+with open(f'{data_path}/test_1.1.yaml', 'r', encoding='utf-8') as f:
     data = yaml.safe_load(f)
 
 class TestLogin:
@@ -16,16 +16,19 @@ class TestLogin:
         """
         登陆
         """
-        u = ServerInfo.get_url('/sys/user/login')
+        u = ServerInfo.get_url1('/tenant/user/login')
+        # print(u)
+        # print(data)
         h = {"username": username, "password": password}
         res = requests.post(url=u, json=h)
         assert res.status_code == assert1
         assert res.json()['code'] == assert2
 
-    def test_logout(self, test_login):
-        u = ServerInfo.get_url('/sys/user/logout')
-        h = {'X-Token': test_login}
+    def test_logout(self, test_login1):
+        u = ServerInfo.get_url1('/tenant/user/logout')
+        h = {'X-Token': test_login1}
         res = requests.post(url=u, headers=h)
         print(res.json())
-
+        assert res.status_code == 200
+        assert res.json()['code'] == 200
 
