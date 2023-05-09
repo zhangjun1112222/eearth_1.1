@@ -27,6 +27,7 @@ class TestLogin:
         u = ServerInfo.get_url('/sys/user/logout')
         h = {'X-Token': test_login}
         res = requests.post(url=u, headers=h)
-        print(res.json())
-
+        # print(res.json())
+        assert res.status_code == 200
+        assert res.json()['code'] == 200
 

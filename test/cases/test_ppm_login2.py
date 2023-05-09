@@ -19,8 +19,8 @@ class TestLogin:
         u = ServerInfo.get_url1('/tenant/user/login')
         # print(u)
         # print(data)
-        h = {"username": username, "password": password}
-        res = requests.post(url=u, json=h)
+        d = {"username": username, "password": password}
+        res = requests.post(url=u, json=d)
         assert res.status_code == assert1
         assert res.json()['code'] == assert2
 
@@ -28,7 +28,6 @@ class TestLogin:
         u = ServerInfo.get_url1('/tenant/user/logout')
         h = {'X-Token': test_login1}
         res = requests.post(url=u, headers=h)
-        print(res.json())
         assert res.status_code == 200
         assert res.json()['code'] == 200
 
