@@ -70,7 +70,7 @@ class TestUserGroup:
         # print(res.json())
         assert res.status_code == 200
         assert res.json()['code'] == 200
-        return res.json()['data']['list'][-1]['id']
+        return res.json()['data']['list'][0]['id']
 
     def test_group_user_add(self, test_login1):
         """
@@ -168,6 +168,46 @@ class TestUserGroup:
         assert res.status_code == 200
         assert res.json()['code'] == 511
 
+    def test_group_project_group_list(self, test_login1):
+        """
+        用户组里项目组列表
+        """
+        a = self.test_user_group_list(test_login1)
+        u = ServerInfo.get_url1('/tenant/user/group/project/group/page/1/size/1000')
+        h = {'X-TOKEN': test_login1}
+        d = {'id': a}
+        res = requests.get(url=u, headers=h, params=d)
+        assert res.status_code == 200
+        assert res.json()['code'] == 200
+        return res.json()['data']['list'][-1]['id']
+
+    def test_group_project_group_delete(self, test_login1):
+        """
+        用户组里删除项目组
+        """
+        a = self.test_group_project_group_list(test_login1)
+        u = ServerInfo.get_url1(f'/tenant/user/group/project/group/{a}')
+        h = {'X-TOKEN': test_login1}
+        res = requests.delete(url=u, headers=h)
+        assert res.status_code == 200
+        assert res.json()['code'] == 200
+
+    def test_group_project_group_add1(self, test_login1):
+        """
+        重新添加一个项目组
+        """
+        self.test_group_project_group_add(test_login1)
+
+    def test_user_group_query(self, test_login1):
+        """
+        用户组查询
+        """
+        u = ServerInfo.get_url1('/tenant/user/group/page/1/size/20')
+        h = {'X-TOKEN': test_login1}
+        d = {'key': '组'}
+        res = requests.get(url=u, headers=h, params=d)
+        assert res.status_code == 200
+        assert res.json()['code'] == 200
 
 
 
